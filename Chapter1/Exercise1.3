@@ -1,0 +1,4 @@
+(define (max3 a b c)
+  (cond ((and (< a b) (< a c)) (+ (sqr b) (sqr c)))
+	((and (< b a) (< b c)) (+ (sqr a) (sqr c)))
+	((and (< c a) (< c b)) (+ (sqr a) (sqr b)))))
