@@ -1,0 +1,14 @@
+(define (p) (p))
+
+(define (test x y)
+  (if (= x 0)
+	0
+	y))
+
+(test 0 (p))
+
+The first define is a lambda function declaration for (p). 
+When (p) is meet in another function, it will be substitued for the value of (p).
+The second define is a function which takes 2 arguments, if the first one is 0, then it should return 0 else it should return the second argument.
+The test function call will go to the the (p) function which is passed as argument and have a recursive call to (p). This is for the case where the interpreter uses applicative-order evaluation.
+If the interprater used normal-order evaluation, the test call would return 0 since it would not bother to call the (p) function.
