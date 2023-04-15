@@ -1,0 +1,25 @@
+(define (sqrt-iter guess x)
+  (if (good-enough? guess x)
+    guess
+    (sqrt-iter(improve guess x)
+	x)))
+
+(define (improve guess x)
+  (average guess (/ x guess)))
+
+(define (average x y)
+  (/ (+ x y) 2))
+
+(define (good-enough? guess x)
+  (< (abs (- (square guess) x)) 0.001))
+
+(define (sqrt x)
+  (sqrt-iter 1.0 x))
+
+The good-enough? test used for computing will not be very effictive because of the tolerance of 0.001. For small radicants the result will not be accurate because the tolerance is nto scaled down. For large radicant, the procedure sqrt-iter enters infinite recursion because the tolerance is not scaled up to the large radicants and floating-point numbers are represented with limited precision, so the absolute error at that scale is always grater that the tolerance.
+
+Here is another good-enough implementation:
+ (define (good-enough? guess x) 
+   (= guess (improve guess x)))
+
+This info comes from http://community.schemewiki.org/?sicp-ex-1.7 
