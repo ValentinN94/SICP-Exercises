@@ -1,0 +1,78 @@
+(define (gcd a b)
+  (if (= b 0) a (gcd b (remainder a b))))
+
+Normal order
+(gcd 206 40)
+
+(if (= 40 0)
+    206
+    (gcd 40 (remainder 206 40)))
+
+(gcd 40 (remainder 206 40))
+
+(if (= (remainder 206 40) 0)
+    40
+    (gcd (remainder 206 40)
+         (remainder 40 (remainder 206 40))))
+; 1*remainder
+(if (= 6 0)
+    40
+    (gcd (remainder 206 40)
+         (remainder 40 (remainder 206 40))))
+
+(gcd (remainder 206 40)
+     (remainder 40 (remainder 206 40)))
+
+(if (= (remainder 40 (remainder 206 40)) 0)
+    (remainder 206 40)
+    (gcd (remainder 40 (remainder 206 40))
+         (remainder (remainder 206 40) (remainder 40 (remainder 206 40)))))
+; 1*remainder
+(if (= (remainder 40 6) 0)
+    (remainder 206 40)
+    (gcd (remainder 40 (remainder 206 40))
+         (remainder (remainder 206 40) (remainder 40 (remainder 206 40)))))
+; 1*remainder
+(if (= 4 0)
+    (remainder 206 40)
+    (gcd (remainder 40 (remainder 206 40))
+         (remainder (remainder 206 40) (remainder 40 (remainder 206 40)))))
+
+(gcd (remainder 40 (remainder 206 40))
+     (remainder (remainder 206 40) (remainder 40 (remainder 206 40))))
+
+(if (= (remainder (remainder 206 40) (remainder 40 (remainder 206 40))) 0)
+    (remainder 40 (remainder 206 40))
+    (gcd (remainder (remainder 206 40) (remainder 40 (remainder 206 40)))
+         (remainder (remainder 40 (remainder 206 40)) (remainder (remainder 206 40) (remainder 40 (remainder 206 40)))))
+; 4*remainder
+(if (= 2 0)
+    (remainder 40 (remainder 206 40))
+    (gcd (remainder (remainder 206 40) (remainder 40 (remainder 206 40)))
+         (remainder (remainder 40 (remainder 206 40)) (remainder (remainder 206 40) (remainder 40 (remainder 206 40))))))
+
+(gcd (remainder (remainder 206 40) (remainder 40 (remainder 206 40)))
+     (remainder (remainder 40 (remainder 206 40)) (remainder (remainder 206 40) (remainder 40 (remainder 206 40)))))
+
+(if (= (remainder (remainder 40 (remainder 206 40)) (remainder (remainder 206 40) (remainder 40 (remainder 206 40)))) 0)
+    (remainder (remainder 206 40) (remainder 40 (remainder 206 40)))
+    (gcd (remainder (remainder 40 (remainder 206 40)) (remainder (remainder 206 40) (remainder 40 (remainder 206 40)))) (remainder a  (remainder (remainder 40 (remainder 206 40)) (remainder (remainder 206 40) (remainder 40 (remainder 206 40)))))))
+; 7*remainder
+(if (= 0 0)
+    (remainder (remainder 206 40) (remainder 40 (remainder 206 40)))
+    (gcd (remainder (remainder 40 (remainder 206 40)) (remainder (remainder 206 40) (remainder 40 (remainder 206 40)))) (remainder a  (remainder (remainder 40 (remainder 206 40)) (remainder (remainder 206 40) (remainder 40 (remainder 206 40)))))))
+
+(remainder (remainder 206 40) (remainder 40 (remainder 206 40)))
+; 4*remainder
+2
+
+Normal order calls remainder 18 times
+
+Applicative order
+(gcd 206 40)
+(gcd 40 6)
+(gcd 6 4)
+(gcd 4 2)
+In applicative order this is called 4 times
+
+
